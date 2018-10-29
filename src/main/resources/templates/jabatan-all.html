@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Viewall Jabatan</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Viewall Jabatan')"></nav>
+<table id="daftarJabatan"  class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>NIP</th>
+        <th>Deskripsi</th>
+        <th>Gaji Pokok</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="jabatan,iterationStatus : ${listJabatan}">
+        <td><a th:href="@{/jabatan/view?idJabatan={id_jabatan}(id_jabatan=${jabatan.id})}" th:text="${jabatan.nama}"></a></td>
+        <td th:text="${jabatan.deskripsi}" ></td>
+        <td th:text="${gaji[__${iterationStatus.index}__]}" ></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    $(document).ready( function () {
+        $('#daftarJabatan').DataTable();
+    } );
+</script>
+</body>
+</html>

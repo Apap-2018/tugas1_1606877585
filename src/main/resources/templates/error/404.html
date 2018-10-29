@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Not Found</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Not Found')"></nav>
+<h1 >Not Found</h1>
+<br>
+<h3>Halaman Tidak Ditemukan</h3>
+
+
+<style>
+    h1 {
+        text-align:center;
+    }
+    h3{
+        text-align: center;
+    }
+</style>
+</body>
+</html>

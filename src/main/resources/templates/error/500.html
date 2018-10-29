@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kesalahan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Terjadi Kesalahan ?')"></nav>
+<h1 >Ada kesalahan</h1>
+<br>
+<h3>Tidak bisa menampilkan halaman</h3>
+
+
+<style>
+    h1 {
+        text-align:center;
+    }
+    h3{
+        text-align: center;
+    }
+</style>
+</body>
+</html>

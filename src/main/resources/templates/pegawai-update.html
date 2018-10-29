@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ubah Pegawai</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Ubah Pegawai')"></nav>
+<h3>Ubah Pegawai</h3>
+<form th:action="@{/pegawai/ubah}" th:object="${pegawai}" method="POST">
+    <input type="hidden"  th:field="*{id}" />
+    <input type="hidden"  th:field="*{nip}" />
+    Name : <br>
+    <input type="text" th:field="*{nama}" name="nama"/>
+    <br>
+    Tempat Lahir: <br>
+    <input type="text" th:field="*{tempat_lahir}" name="Tempat Lahir"/>
+    <br>
+    Tanggal Lahir: <br>
+    <input type="date" th:field="*{tanggal_lahir}" name="Tanggal Lahir"/><br>
+    Tahun Masuk: <br>
+    <input type="text" th:field="*{tahun_masuk}" name="Tahun Masuk"/>
+    <br>
+    <br>
+    <select id="provinsi" name="provinsi">
+        <option  selected="selected" >-- Pilih Provinsi --</option>
+        <option th:each="provinsi : ${listProvinsi}"
+                th:value="${provinsi.id}"
+                th:text="${provinsi.nama}"></option>
+    </select>
+    <br>
+    Instansi: <br>
+
+    <select
+            id="instansi"
+            name="instansi"
+            th:value="${instansi}"
+            required="required">
+        <option  selected="selected">-- Pilih Instansi --</option>
+    </select>
+    <br>
+    Jabatan: <br>
+    <div th:each="jabatanPegawai,iterationStatus : *{jabatanPegawaiModel}">
+    <select
+            id="jabatan"
+            th:field="*{jabatanPegawaiModel[__${iterationStatus.index}__].jabatan}"
+            required="required">
+
+        <option th:each="jabatan : ${listJabatan}"
+                th:value="${jabatan.id}"
+                th:text="${jabatan.nama}"></option>
+
+    </select>
+
+    <br><br>
+    </div>
+    <button  type="submit" name="add" >Tambah Jabatan</button>
+
+    <br><br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
+<script>
+    $('#provinsi').change(
+        function() {
+
+            $.getJSON("http://localhost:8080/instansi-list", {
+                provinsiId : $(this).val(),
+                ajax : 'true'
+            }, function(data) {
+                var html = '<option disabled="disabled" selected="selected">-- Pilih Instansi --</option>';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html +=
+                        '<option value= "'+ data[i].id +'" th:text="'+ data[i].nama +'">' + data[i].nama + '</option>';
+                }
+                $('#instansi').html(html);
+            });
+        });
+
+
+
+</script>
+</body>
+</html>

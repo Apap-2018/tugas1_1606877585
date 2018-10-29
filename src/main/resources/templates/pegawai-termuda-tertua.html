@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Pegawai</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Detail Pegawai')"></nav>
+<div id="container">
+<div id="left" class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Data Pegawai Termuda</h5>
+                <h6 th:text="'NIP  ' + ${pegawai1.nip}"></h6><br>
+                <h6 th:text="'Nama  '+ ${pegawai1.nama}"></h6><br>
+                <h6 th:text="'Tempat Lahir  '+ ${pegawai1.tempat_lahir}"></h6><br>
+                <h6 th:text="'Tanggal Lahir  '+ ${pegawai1.tanggal_lahir}"></h6><br>
+                <h6 th:text="'Tahun Masuk  '+ ${pegawai1.tahun_masuk}"></h6><br>
+                <h6 th:text="'Nama Instansi : '+ ${pegawai1.instansi.nama} + ' - '+ ${pegawai1.instansi.provinsiModel.nama}"></h6><br>
+                <h6 th:text="'Jabatan :' "></h6><br>
+                <ul th:each="jabatanPegawai,iterationStatus :${pegawai1.jabatanPegawaiModel}">
+                    <li th:text="${pegawai1.jabatanPegawaiModel[__${iterationStatus.index}__].jabatan.nama}"></li>
+                </ul>
+                <h6 th:text="'Gaji : '+ ${gaji1}"></h6><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="right" class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Data Pegawai Tertua</h5>
+                <h6 th:text="'NIP  ' + ${pegawai2.nip}"></h6><br>
+                <h6 th:text="'Nama  '+ ${pegawai2.nama}"></h6><br>
+                <h6 th:text="'Tempat Lahir  '+ ${pegawai2.tempat_lahir}"></h6><br>
+                <h6 th:text="'Tanggal Lahir  '+ ${pegawai2.tanggal_lahir}"></h6><br>
+                <h6 th:text="'Tahun Masuk  '+ ${pegawai2.tahun_masuk}"></h6><br>
+                <h6 th:text="'Nama Instansi : '+ ${pegawai2.instansi.nama} + ' - '+ ${pegawai2.instansi.provinsiModel.nama}"></h6><br>
+                <h6 th:text="'Jabatan :' "></h6><br>
+                <ul th:each="jabatanPegawai,iterationStatus :${pegawai2.jabatanPegawaiModel}">
+                    <li th:text="${pegawai2.jabatanPegawaiModel[__${iterationStatus.index}__].jabatan.nama}"></li>
+                </ul>
+                <h6 th:text="'Gaji : '+ ${gaji2}"></h6><br>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<style>
+</style>
+</body>
+</html>

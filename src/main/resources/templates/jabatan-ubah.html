@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ubah Jabatan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Ubah Jabatan')"></nav>
+<h3>Ubah Jabatan</h3>
+<form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
+    <input type="hidden" th:field="*{id}"/>
+    Nama : <br>
+    <input type="text" th:field="*{nama}" required="required" name="nama"/>
+    <br>
+    Deskripsi: <br>
+    <input type="text" th:field="*{deskripsi}" required="required" name="Deskripsi"/>
+    <br>
+    Gaji Pokok: <br>
+    <input type="number"   required="required" name="gaji_pokok" /><br><br>
+
+
+    <button type="submit" class="btn btn-primary">Simpan</button>
+
+</form>
+
+</body>
+</html>

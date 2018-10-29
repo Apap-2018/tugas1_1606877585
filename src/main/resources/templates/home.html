@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('SIPEG')"></nav>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Sistem informasi Kepegawaian</h5>
+                <h6>Selamat datang di Sistem informasi Kepegawaian</h6>
+            </div>
+            <h5>Lihat Data Pegawai Berdasarkan NIP</h5>
+            <h10>Masukkan Nomor Induk Pegawai</h10>
+            <form th:action="@{/pegawai/}" method="GET">
+                <div class="card-body">
+                    <label for= "nip"></label>
+                    <input type="text" name="nip" class="form-control"/>
+                    <p></p>
+                    <button type="submit" class="btn btn-primary">Lihat</button>
+                </div>
+            </form>
+            <br>
+            <h5>Lihat Detail Jabatan</h5>
+            <h10>Pilih Jabatan</h10>
+            <form th:action="@{/jabatan/view}"  method="GET">
+            <select
+                    id="jabatan"
+                    name="idJabatan"
+                    required="required">
+                <option  selected="selected">-- Pilih Jabatan --</option>
+                <option th:each="jabatan : ${listJabatan}"
+                        th:value="${jabatan.id}"
+                        th:text="${jabatan.nama}"></option>
+
+            </select>
+                <button type="submit" class="btn btn-primary">Lihat</button>
+            </form>
+            <br>
+            <h5>Lihat Detail Jabatan</h5>
+            <h10>Pilih Provinsi</h10>
+            <form th:action="@{/pegawai/termuda-tertua}" method="GET">
+                <select id="provinsi">
+                    <option  selected="selected" >-- Pilih Provinsi --</option>
+                    <option th:each="provinsi : ${listProvinsi}"
+                            th:value="${provinsi.id}"
+                            th:text="${provinsi.nama}"></option>
+                </select>
+                <br>
+                <h10>Pilih Instansi</h10>
+                <br>
+                <select
+                        id="instansi"
+                        name="idInstansi"
+                        th:value="${instansi}"
+                        required="required">
+                    <option  selected="selected"
+                    >-- Pilih Provinsi --</option>
+                    <option  selected="selected">-- Pilih Instansi --</option>
+                </select>
+                <br><br>
+                <button type="submit" class="btn btn-primary">Lihat</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#provinsi').change(
+        function() {
+
+            $.getJSON("http://localhost:8080/instansi-list", {
+                provinsiId : $(this).val(),
+                ajax : 'true'
+            }, function(data) {
+                var html = '<option disabled="disabled" selected="selected">-- Pilih Instansi --</option>';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html +=
+                        '<option value= "'+ data[i].id +'" th:text="'+ data[i].nama +'">' + data[i].nama + '</option>';
+                }
+                $('#instansi').html(html);
+            });
+        });
+</script>
+
+</body>
+</html>

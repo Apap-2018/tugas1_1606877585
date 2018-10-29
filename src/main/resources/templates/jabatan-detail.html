@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Pegawai</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Detail Jabatan')"></nav>
+<br>
+<h4 th:text="'Detail Jabatan - '+ ${jabatan.nama}"></h4>
+<br>
+<table  style="width:100%">
+    <tr>
+        <th>Nama</th>
+        <td th:text=" ${jabatan.nama}"></td>
+    </tr>
+    <tr>
+        <th>Deskripsi</th>
+        <td th:text="${jabatan.deskripsi}"></td>
+    </tr>
+    <tr>
+        <th>Gaji pokok</th>
+        <td th:text="${gaji}"></td>
+    </tr>
+
+</table>
+<div style="width:400px;">
+    <div style="float: left; width: 110px">
+<form th:action="@{/jabatan/ubah}" method="GET">
+    <div class="card-body">
+        <label for= "id"></label>
+        <input type="hidden" th:value="${jabatan.id}"name="idJabatan" class="form-control"/>
+        <p></p>
+        <button type="submit" class="btn btn-primary" align="middle" width="48" height="48">Ubah</button>
+    </div>
+</form>
+    </div>
+<div style="float: right; width: 225px">
+<form th:action="@{/jabatan/hapus}" th:object="${jabatan}" method="POST">
+    <div class="card-body">
+        <label for= "id"></label>
+        <input type="hidden" th:field="*{id}" name="idJabatan" class="form-control"/>
+        <p></p>
+        <button type="submit" class="btn btn-danger  " align="middle" width="48" height="48">Hapus</button>
+    </div>
+</form>
+        </div>
+    </div>
+</body>

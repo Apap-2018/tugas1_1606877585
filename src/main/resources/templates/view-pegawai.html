@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Pegawai</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Detail Pegawai')"></nav>
+<br>
+<h4 th:text="'Lihat Data Pegawai - '+ ${pegawai.nip}"></h4>
+<br>
+<h6 th:text="'NIP  ' + ${pegawai.nip}"></h6><br>
+<h6 th:text="'Nama  '+ ${pegawai.nama}"></h6><br>
+<h6 th:text="'Tempat Lahir  '+ ${pegawai.tempat_lahir}"></h6><br>
+<h6 th:text="'Tanggal Lahir  '+ ${pegawai.tanggal_lahir}"></h6><br>
+<h6 th:text="'Tahun Masuk  '+ ${pegawai.tahun_masuk}"></h6><br>
+<h6 th:text="'Nama Instansi : '+ ${pegawai.instansi.nama} + ' - '+ ${pegawai.instansi.provinsiModel.nama}"></h6><br>
+<h6 th:text="'Jabatan :' "></h6><br>
+<ul th:each="jabatanPegawai :${jabatan}">
+    <li th:text="${jabatanPegawai.jabatan.nama}"></li>
+</ul>
+<h6 th:text="'Gaji : '+ ${gaji}"></h6><br>
+
+
+<form th:action="@{/pegawai/ubah}" th:object="${pegawai}" method="GET">
+    <div class="card-body">
+        <label for= "nip"></label>
+        <input type="hidden" name="nip" th:field="*{nip}" class="form-control"/>
+        <p></p>
+        <button type="submit" class="btn btn-primary">Ubah</button>
+    </div>
+
+
+
+</form>
+
+</body>
+</html>
