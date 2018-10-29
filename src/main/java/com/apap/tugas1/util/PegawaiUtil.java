@@ -17,6 +17,12 @@ import java.util.List;
 
 public class PegawaiUtil {
 
+    /**
+     * Get Highest Gaji pokok of a Pegawai
+     * @param pegawaiModel
+     * @param jabatanPegawaiModel
+     * @return
+     */
     public static int getPegawaiHighestGaji(PegawaiModel pegawaiModel , List<JabatanPegawaiModel> jabatanPegawaiModel){
         List<JabatanModel> temp = JabatanUtil.findAll(jabatanPegawaiModel);
         Comparator<JabatanModel> gajiCompare = new CompareJabatanByHigestGaji();
@@ -25,12 +31,24 @@ public class PegawaiUtil {
         return gaji;
     }
 
+    /**
+     * Find gaji based on formula below
+     * @param pegawaiModel
+     * @param highestWage
+     * @return
+     */
     public static double findGaji(PegawaiModel pegawaiModel , JabatanModel highestWage){
         double gajiMax = highestWage.getGaji_pokok();
         double gajiDou = gajiMax + (pegawaiModel.getInstansi().getProvinsiModel().getPresentase_tunjangan()/100*gajiMax);
         return gajiDou;
     }
 
+    /**
+     * This method will create or update an NIP of Pegawai
+     * @param pegawaiModel
+     * @param pegawaiService
+     * @return
+     */
     public static String generateNIP(PegawaiModel pegawaiModel, PegawaiService pegawaiService){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(pegawaiModel.getInstansi().getId());
@@ -51,8 +69,11 @@ public class PegawaiUtil {
 
     }
 
-
-
+    /**
+     * Generate a 'no urut' for NIP
+     * @param myPegawai
+     * @return
+     */
     private static String getNextNip(List<PegawaiModel> myPegawai){
         if (myPegawai.isEmpty()){
             return String.format("%02d",1);
@@ -65,6 +86,12 @@ public class PegawaiUtil {
 
     }
 
+    /**
+     * Get an integer value of certain digit of NIP
+     * @param nip
+     * @param digitStart
+     * @return
+     */
     private static int nipIntegerValue(String nip,int digitStart){
         String subs = nip.substring(digitStart);
         int res = Integer.parseInt(subs);
@@ -73,6 +100,13 @@ public class PegawaiUtil {
 
     }
 
+    /**
+     * This method is the one that responsible to checking whether a NIP related field
+     * are changed or not
+     * @param lama
+     * @param baru
+     * @return
+     */
     public static boolean checkConditionAffectingNIP(PegawaiModel lama , PegawaiModel baru){
         if (lama.getInstansi().getId()!=baru.getInstansi().getId())
             return true;
@@ -83,6 +117,14 @@ public class PegawaiUtil {
         return false;
     }
 
+    /**
+     * Find pegawai by filter below
+     * @param pegawaiService
+     * @param provinsiModel
+     * @param instansiModel
+     * @param jabatanModel
+     * @return
+     */
     public static List<PegawaiModel> findPegawai(PegawaiService pegawaiService,ProvinsiModel provinsiModel,InstansiModel instansiModel , JabatanModel jabatanModel){
         List<PegawaiModel> pegawai = new ArrayList<>();
         List<PegawaiModel> pegawaiByProvinsi = new ArrayList<>();
@@ -102,6 +144,12 @@ public class PegawaiUtil {
         return res;
     }
 
+    /**
+     * Find intersection of two category filter
+     * @param category1
+     * @param category2
+     * @return
+     */
     private static List<PegawaiModel> intersect( List<PegawaiModel> category1 , List<PegawaiModel> category2){
         List<PegawaiModel> target  = new ArrayList<>();
         if (category1.isEmpty() && category2.size()>0)

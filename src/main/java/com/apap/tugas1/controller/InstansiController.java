@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * Controller Class to control operation related to Instansi
+ */
 @Controller
 public class InstansiController {
     @Autowired
@@ -22,6 +25,13 @@ public class InstansiController {
     @Autowired
     InstansiService instansiService;
 
+    /**
+     * This method is invoked by AJAX call when Dropdown Provinsi is change
+     * This method will return list of instansi to be used by JS to create dropdown instansi
+     * @param provinsiId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/instansi-list", method = RequestMethod.GET)
     public @ResponseBody
     List<InstansiModel> findAllInstansi(@RequestParam(value = "provinsiId", required = true) int provinsiId, Model model) {
